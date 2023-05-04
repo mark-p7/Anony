@@ -24,18 +24,15 @@ export const SendCommand: Command = {
     const channelId: string = interaction.channelId;
     const content = interaction.options.get("message")?.value;
     const channel = await client.channels.fetch(channelId);
-    if(interaction.replied) return;
     if (typeof content === "string" && channel) {
       await (channel as TextChannel).send(content);
-      await interaction.reply({
+      await interaction.editReply({
         content: "Message sent",
-        ephemeral: true,
       });
       return;
     } else {
-      await interaction.reply({
+      await interaction.editReply({
         content: "An error has occurred",
-        ephemeral: true,
       });
       return;
     }
