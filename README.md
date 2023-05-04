@@ -71,7 +71,7 @@ The bot will send the message to the specified channel, and the bot will notify 
 To delete an anonymous message that you have sent, use the following command:
 
 ```
-/anon delete <message ID>
+/anondelete <message ID>
 ```
 
 - `message ID` is the unique ID assigned to the anonymous message when it was sent
@@ -79,7 +79,7 @@ To delete an anonymous message that you have sent, use the following command:
 For example:
 
 ```
-/anon delete 123123123123
+/anondelete 123123123123
 ```
 
 ## Architecture
@@ -90,7 +90,7 @@ Anon.y is built using the following technologies:
 - Discord.js library for interacting with the Discord API
 - dotenv library for loading environment variables from a `.env` file
 
-The bot follows a simple architecture where messages are sent to Discord channels by calling the `discord.js` API, and anonymous messages are stored in a SQLite database. The bot uses unique message IDs to allow users to delete their own messages, and messages are automatically deleted after a set period of time to ensure privacy.
+The bot follows a simple architecture where messages are sent to Discord channels by calling the `discord.js` API, and anonymous messages are not currently stored on a database. In the near future, the bot will use unique message IDs to allow users to delete their own messages, and messages are automatically deleted after a set period of time to ensure privacy.
 
 ## Contributing
 
