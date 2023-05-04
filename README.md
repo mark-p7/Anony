@@ -46,7 +46,7 @@ To install and set up Anon.y, follow these steps:
    - `DISCORD_SECRET_TOKEN` is the token for your Discord bot. You can obtain this token from the Discord Developer Portal.
    - `BOT_PREFIX` is the command prefix for the bot. This can be changed to any prefix of your choosing.
 
-4. Start the bot by running `npm run start`
+4. Start the bot by running `npm run dev`
 
 ## Usage
 
