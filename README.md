@@ -98,4 +98,4 @@ If you wish to contribute to Anon.y, feel free to fork the repository and submit
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/mark-p7/Anony/blob/main/LICENSE) file for details.
