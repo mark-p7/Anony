@@ -1,4 +1,4 @@
-import { Client, ApplicationCommandDataResolvable } from "discord.js";
+import { Client } from "discord.js";
 import "dotenv/config";
 import { Commands } from "./Commands/SlashCommands/Commands";
 import { interactionHandler } from "./Commands/SlashCommands/handleSlashCommand";
@@ -10,9 +10,7 @@ const client = new Client({
 });
 
 client.on("ready", () => {
-  if (!client.user || !client.application) {
-    return;
-  }
+  if (!client.user || !client.application) return;
 
   for (const command of Commands) {
     client.application?.commands.create(command);
