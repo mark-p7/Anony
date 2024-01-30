@@ -1,4 +1,10 @@
-import { Client, CommandInteraction, Interaction, Events } from "discord.js";
+import {
+  Client,
+  CommandInteraction,
+  Interaction,
+  Events,
+  InteractionResponse,
+} from "discord.js";
 import { Commands } from "./Commands";
 
 export const interactionHandler = (client: Client): void => {
@@ -13,7 +19,6 @@ export const handleSlashCommand = async (
   client: Client,
   interaction: CommandInteraction
 ): Promise<void> => {
-  
   // Find the command that was ran
   const slashCommand = Commands.find((c) => c.name === interaction.commandName);
 
@@ -26,7 +31,27 @@ export const handleSlashCommand = async (
     return;
   }
 
-  // If the command does exist, defer the reply and run the command
-  await interaction.deferReply({ ephemeral: true });
-  slashCommand.run(client, interaction);
+  // Defer pending reply
+  const pendingReply: InteractionResponse<boolean> =
+    await interaction.deferReply({ ephemeral: true });
+
+  try {
+    // Run the command
+    await slashCommand.run(client, interaction);
+
+    // Delete pending reply after command is finished running
+    pendingReply.delete();
+  } catch (error) {
+    // Log error
+    console.log(error);
+
+    // Set error message
+    let message: string = "An error has occured";
+    if (error instanceof Error) message = error.message;
+
+    // Send error message
+    pendingReply.edit({
+      content: message,
+    });
+  }
 };
