@@ -66,7 +66,17 @@ For example:
 
 The bot will send the message to the specified channel, and the bot will notify the user that the message was sent
 
-***!! Upcoming !!***
+## Screenshots
+Finding the slash command
+![Alt text](<static/Screenshot 2024-01-30 at 10.12.35 AM.png>)
+Sending the slash command
+![Alt text](<static/Screenshot 2024-01-30 at 10.14.14 AM.png>)
+Bot is computing the response
+![Alt text](<static/Screenshot 2024-01-30 at 10.14.27 AM.png>)
+Bot has successfully sent the message anonymously
+![Alt text](<static/Screenshot 2024-01-30 at 10.16.01 AM.png>)
+
+## !! Upcoming !!
 
 To delete an anonymous message that you have sent, use the following command:
 
