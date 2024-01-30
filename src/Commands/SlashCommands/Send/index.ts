@@ -3,7 +3,6 @@ import {
   Client,
   ApplicationCommandType,
   TextChannel,
-  Message,
 } from "discord.js";
 import { Command } from "@/Types/CommandTypes";
 import { Profanity, ProfanityOptions } from "@2toad/profanity";
@@ -14,6 +13,8 @@ const profanityOptions: ProfanityOptions = {
   grawlix: "\\*\\*\\*\\*\\*",
   grawlixChar: "\\*",
 };
+
+const profanity: Profanity = new Profanity(profanityOptions);
 
 export const SendCommand: Command = {
   name: "anon",
@@ -29,35 +30,20 @@ export const SendCommand: Command = {
   run: async (client: Client, interaction: CommandInteraction) => {
     if (!interaction.isCommand()) return;
 
+    // Get the channel and message content
     const channelId: string = interaction.channelId;
     const content = interaction.options.get("message")?.value;
     const channel = await client.channels.fetch(channelId);
-    const profanity = new Profanity(profanityOptions);
 
-    if (typeof content === "string" && channel) {
-      // Filter word and log it
-      const wordSent = profanity.censor(content, CensorType.AllVowels);
-      console.log(wordSent);
+    // Check if the message is a string and if the channel exists
+    if (typeof content !== "string" || !channel)
+      throw new Error("An error has occurred");
 
-      // Send the message through the bot
-      const message: Message<true> = await (channel as TextChannel).send(
-        wordSent
-      );
+    // Check if the message is too long
+    if (content.length > 2000) throw new Error("Message is too long");
 
-      // Notify the user that the message has been sent
-      const returnString =
-        `Message has been sent | ` +
-        `Content: ${message.content} | ` +
-        `Id: ${message.id} | ` +
-        `https://discord.com/channels/${message.guildId}/${message.channelId}/${message.id}`;
-
-      await interaction.editReply({
-        content: returnString,
-      });
-    } else {
-      await interaction.editReply({
-        content: "An error has occurred",
-      });
-    }
+    // Filter word and send it
+    const wordSent = profanity.censor(content, CensorType.AllVowels);
+    await (channel as TextChannel).send(wordSent);
   },
 };
